@@ -1,2 +1,2 @@
-install(FILES dict.h
+install(FILES dict/dict.h
 	DESTINATION include/${PROJECT_NAME})

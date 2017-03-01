@@ -1,4 +1,4 @@
-#include "dict.h"
+#include "dict/dict.h"
 #include <unity/unity.h>
 
 static void test_dict_add_find(void)
