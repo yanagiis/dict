@@ -15,6 +15,10 @@ struct DictItem {
     UT_hash_handle hh;
 };
 
+struct DictIterator {
+    struct DictItem *el;
+};
+
 struct Dict {
     struct DictItem *head;
 };
@@ -102,4 +106,31 @@ void *dict_dell(struct Dict *dict, const char *key, int len)
     }
 
     return NULL;
+}
+
+struct DictIterator *dict_iter_new(struct Dict *dict)
+{
+    struct DictIterator *it = malloc(sizeof(struct DictIterator));
+    if (dict->head == NULL) {
+        return NULL;
+    }
+
+    it->el = dict->head;
+    return it;
+}
+
+void *dict_iter_next(struct DictIterator *it)
+{
+    if (it->el == NULL) {
+        return NULL;
+    }
+
+    void *val = it->el->value;
+    it->el = (it->el)->hh.next;
+    return val;
+}
+
+void dict_iter_free(struct DictIterator *it)
+{
+    free(it);
 }
