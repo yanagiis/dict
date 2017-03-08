@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <uthash.h>
+#include <errno.h>
 
 #include "dict/dict.h"
 
@@ -50,7 +51,7 @@ void dict_free(struct Dict *dict, void (*fn_free_value)(void *))
 
 bool dict_add(struct Dict *dict, const char *key, void *value)
 {
-    return dict_addl(dict, key, strlen(key), value);
+    return dict_addl(dict, key, strlen(key) + 1, value);
 }
 
 bool dict_addl(struct Dict *dict, const char *key, int len, void *value)
@@ -75,7 +76,7 @@ bool dict_addl(struct Dict *dict, const char *key, int len, void *value)
 
 void *dict_get(struct Dict *dict, const char *key)
 {
-    return dict_getl(dict, key, strlen(key));
+    return dict_getl(dict, key, strlen(key) + 1);
 }
 
 void *dict_getl(struct Dict *dict, const char *key, int len)
