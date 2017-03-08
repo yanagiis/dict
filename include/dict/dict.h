@@ -16,7 +16,8 @@ void *dict_dell(struct Dict *dict, const char *key, int len);
 void dict_free(struct Dict *dict, void (*fn_free_value)(void *));
 
 struct DictIterator *dict_iter_new(struct Dict *dict);
-void *dict_iter_next(struct DictIterator *it);
+int dict_iter_next(struct DictIterator *it, const char **key, void **value);
+int dict_iter_nextl(struct DictIterator *it, const char **key, int *keylen, void **value);
 void dict_iter_free(struct DictIterator *it);
 
 #endif /* DICT_H */

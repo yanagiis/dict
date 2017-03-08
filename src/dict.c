@@ -120,15 +120,29 @@ struct DictIterator *dict_iter_new(struct Dict *dict)
     return it;
 }
 
-void *dict_iter_next(struct DictIterator *it)
+int dict_iter_next(struct DictIterator *it, const char **key, void **value)
 {
     if (it->el == NULL) {
-        return NULL;
+        return -1;
     }
 
-    void *val = it->el->value;
+    *key = it->el->hh.key;
+    *value = it->el->value;
     it->el = (it->el)->hh.next;
-    return val;
+    return 0;
+}
+
+int dict_iter_nextl(struct DictIterator *it, const char **key, int *keylen, void **value)
+{
+    if (it->el == NULL) {
+        return -1;
+    }
+
+    *key = it->el->hh.key;
+    *keylen = it->el->hh.keylen;
+    *value = it->el->value;
+    it->el = (it->el)->hh.next;
+    return 0;
 }
 
 void dict_iter_free(struct DictIterator *it)
