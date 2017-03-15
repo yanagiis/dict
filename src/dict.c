@@ -133,7 +133,10 @@ int dict_iter_next(struct DictIterator *it, const char **key, void **value)
     return 0;
 }
 
-int dict_iter_nextl(struct DictIterator *it, const char **key, int *keylen, void **value)
+int dict_iter_nextl(struct DictIterator *it,
+                    const char **key,
+                    int *keylen,
+                    void **value)
 {
     if (it->el == NULL) {
         return -1;
