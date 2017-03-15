@@ -11,9 +11,9 @@
     HASH_ADD(hh, head, strfield[0], len, add)
 
 struct DictItem {
-    const char *arg;
     void *value;
     UT_hash_handle hh;
+    char key[];
 };
 
 struct DictIterator {
@@ -64,13 +64,14 @@ bool dict_addl(struct Dict *dict, const char *key, int len, void *value)
         return false;
     }
 
-    item = malloc(sizeof(*item));
+    item = malloc(sizeof(*item) + len);
     if (item == NULL) {
         return false;
     }
-    item->arg = key;
+
+    memcpy(item->key, key, len);
     item->value = value;
-    HASH_ADD_NSTR(d->head, arg, len, item);
+    HASH_ADD_NSTR(d->head, key, len, item);
     return true;
 }
 
