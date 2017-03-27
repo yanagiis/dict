@@ -51,7 +51,7 @@ void dict_free(struct Dict *dict, void (*fn_free_value)(void *))
 
 bool dict_add(struct Dict *dict, const char *key, void *value)
 {
-    return dict_addl(dict, key, strlen(key) + 1, value);
+    return dict_addl(dict, key, strlen(key), value);
 }
 
 bool dict_addl(struct Dict *dict, const char *key, int len, void *value)
@@ -64,12 +64,13 @@ bool dict_addl(struct Dict *dict, const char *key, int len, void *value)
         return false;
     }
 
-    item = malloc(sizeof(*item) + len);
+    item = malloc(sizeof(*item) + len + 1);
     if (item == NULL) {
         return false;
     }
 
     memcpy(item->key, key, len);
+    item->key[len] = 0;
     item->value = value;
     HASH_ADD_NSTR(d->head, key, len, item);
     return true;
@@ -77,7 +78,7 @@ bool dict_addl(struct Dict *dict, const char *key, int len, void *value)
 
 void *dict_get(struct Dict *dict, const char *key)
 {
-    return dict_getl(dict, key, strlen(key) + 1);
+    return dict_getl(dict, key, strlen(key));
 }
 
 void *dict_getl(struct Dict *dict, const char *key, int len)
