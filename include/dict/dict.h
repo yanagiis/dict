@@ -3,6 +3,10 @@
 
 #include <stdbool.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct Dict;
 struct DictIterator;
 
@@ -19,5 +23,9 @@ struct DictIterator *dict_iter_new(struct Dict *dict);
 int dict_iter_next(struct DictIterator *it, const char **key, void **value);
 int dict_iter_nextl(struct DictIterator *it, const char **key, int *keylen, void **value);
 void dict_iter_free(struct DictIterator *it);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* DICT_H */
