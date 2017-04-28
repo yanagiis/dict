@@ -17,7 +17,7 @@ bool dict_add(struct Dict *dict, const char *key, void *value);
 bool dict_addl(struct Dict *dict, const char *key, int len, void *value);
 void *dict_del(struct Dict *dict, const char *key);
 void *dict_dell(struct Dict *dict, const char *key, int len);
-void dict_free(struct Dict *dict, void (*fn_free_value)(void *));
+void dict_free(struct Dict *dict, void (*free_value_cb)(void *));
 
 struct DictIterator *dict_iter_new(struct Dict *dict);
 int dict_iter_next(struct DictIterator *it, const char **key, void **value);
